@@ -45,6 +45,17 @@ async def read_profile(request: Request, db: Session = Depends(get_db)):
         })
     return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
 
+@app.get("/resume")
+async def read_resume(request: Request, db: Session = Depends(get_db)):
+    profile = db.query(Profile).first()
+    # If no profile exists, return a form with empty fields
+    if not profile:
+        return templates.TemplateResponse("resume.html", {
+            "request": request, 
+            "profile": None  # Indicates new profile
+        })
+    return templates.TemplateResponse("resume.html", {"request": request, "profile": profile})
+
 @app.post("/profile/")
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     db_profile = Profile(**profile.dict())
