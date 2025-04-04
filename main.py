@@ -34,17 +34,21 @@ class ProfileCreate(BaseModel):
 templates = Jinja2Templates(directory="templates")
 
 # Routes
-@app.get("/")
-async def read_profile(request: Request, db: Session = Depends(get_db)):
-    profile = db.query(Profile).first()
+# @app.get("/")
+# async def read_profile(request: Request, db: Session = Depends(get_db)):
+#     profile = db.query(Profile).first()
    
-    if not profile:
-        return templates.TemplateResponse("profile.html", {
-            "request": request, 
-            "profile": None  
-        })
-    return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
+#     if not profile:
+#         return templates.TemplateResponse("profile.html", {
+#             "request": request, 
+#             "profile": None  
+#         })
+#     return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
 
+
+@app.get("/")
+async def show_projects(request: Request):
+    return templates.TemplateResponse("main/index.html", {"request": request})
 
 
 
@@ -84,12 +88,15 @@ def update_profile(profile_id: int, profile: ProfileCreate, db: Session = Depend
 
 
 
+# Add these new routes
 @app.get("/projects")
-async def read_projects(request: Request, db: Session = Depends(get_db)):
-    project = db.query(Projects).first()
-    if not project:
-        return templates.TemplateResponse("project.html", {
-            "request": request, 
-            "project": None  
-        })
-    return templates.TemplateResponse("project.html", {"request": request, "profile": project})
+async def show_projects(request: Request):
+    return templates.TemplateResponse("projects.html", {"request": request})
+
+@app.get("/skills")
+async def show_skills(request: Request):
+    return templates.TemplateResponse("skills.html", {"request": request})
+
+@app.get("/certifications")
+async def show_certifications(request: Request):
+    return templates.TemplateResponse("certifications.html", {"request": request})

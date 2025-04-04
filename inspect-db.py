@@ -54,6 +54,8 @@ def display_projects():
         console.print("[red]❌ Projects table doesn't exist![/red]")
         return
     
+
+
     # Get all projects
     projects = db.query(Projects).all()
     

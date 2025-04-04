@@ -15,7 +15,6 @@ def create_default_profile():
         github="https://github.com/yourusername",
         summary="Experienced software developer specializing in..."
     )
-    
     try:
         db.add(default_profile)
         db.commit()
@@ -66,7 +65,6 @@ def create_default_skills():
         print("Error creating skills")
     finally:
         db.close()
-
 
 def create_default_certifications():
     db = SessionLocal()
