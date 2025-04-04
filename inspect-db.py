@@ -55,7 +55,7 @@ def display_projects():
         return
     
 
-
+    projects.list[0.1]
     # Get all projects
     projects = db.query(Projects).all()
     
