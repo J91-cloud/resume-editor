@@ -1,7 +1,7 @@
 # main.py
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import Profile
+from models import Profile,Projects
 from database import SessionLocal, engine
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
@@ -37,24 +37,28 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/")
 async def read_profile(request: Request, db: Session = Depends(get_db)):
     profile = db.query(Profile).first()
-    # If no profile exists, return a form with empty fields
+   
     if not profile:
         return templates.TemplateResponse("profile.html", {
             "request": request, 
-            "profile": None  # Indicates new profile
+            "profile": None  
         })
     return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
+
+
+
 
 @app.get("/resume")
 async def read_resume(request: Request, db: Session = Depends(get_db)):
     profile = db.query(Profile).first()
-    # If no profile exists, return a form with empty fields
     if not profile:
         return templates.TemplateResponse("resume.html", {
             "request": request, 
-            "profile": None  # Indicates new profile
+            "profile": None  
         })
     return templates.TemplateResponse("resume.html", {"request": request, "profile": profile})
+
+
 
 @app.post("/profile/")
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
@@ -63,6 +67,7 @@ def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_profile)
     return db_profile
+
 
 @app.put("/profile/{profile_id}")
 def update_profile(profile_id: int, profile: ProfileCreate, db: Session = Depends(get_db)):
@@ -76,3 +81,15 @@ def update_profile(profile_id: int, profile: ProfileCreate, db: Session = Depend
     db.commit()
     db.refresh(db_profile)
     return db_profile
+
+
+
+@app.get("/projects")
+async def read_projects(request: Request, db: Session = Depends(get_db)):
+    project = db.query(Projects).first()
+    if not project:
+        return templates.TemplateResponse("project.html", {
+            "request": request, 
+            "project": None  
+        })
+    return templates.TemplateResponse("project.html", {"request": request, "profile": project})
