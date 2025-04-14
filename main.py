@@ -115,7 +115,7 @@ async def get_certifications(request:Request):
 
 @app.get("/add-project")
 async def add_project_form(request:Request):
-    return templates.TemplateResponse("projects/addproject.html")
+    return templates.TemplateResponse("projects/addproject.html", {"request": request})
 
 
 
