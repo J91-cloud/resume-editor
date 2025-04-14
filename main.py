@@ -33,6 +33,24 @@ class ProfileCreate(BaseModel):
     github: str = None
     summary: str = None
 
+
+class ProjectRequestDTO(BaseModel):
+    full_name: str
+    start_date: str
+    end_date: str
+    small_description: str
+    technologies_used: str
+    role_of_project: str
+
+class SkillsDTO(BaseModel):
+    skill_name: str
+
+class CertificationsDTO(BaseModel):
+    full_name: str
+    start_date: str
+    end_date: str
+
+
 # Templates setup
 templates = Jinja2Templates(directory="templates")
 
@@ -65,7 +83,7 @@ async def get_projects(request:Request):
     projects = db.query(Projects).all()
     db.close()
 
-    return templates.TemplateResponse("project.html",{"request":request, "projects": projects})
+    return templates.TemplateResponse("projects/project.html",{"request":request, "projects": projects})
 
 
 @app.get("/profile")
@@ -95,6 +113,10 @@ async def get_certifications(request:Request):
     return templates.TemplateResponse("certifications.html", {"request":request, "certifications": certification})
 
 
+@app.get("/add-project")
+async def add_project_form(request:Request):
+    return templates.TemplateResponse("projects/addproject.html")
+
 
 
 ##############################################################################################
@@ -120,6 +142,7 @@ async def read_resume(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("resume.html", {"request": request, "profile": profile})
 
 
+################################################################################################################
 
 @app.post("/profile/")
 def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
@@ -128,6 +151,20 @@ def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_profile)
     return db_profile
+
+# @app.post("/project/add")
+# def create_project(projectRequestDTO: ProjectRequestDTO, db: Session ):
+#     db_project = Projects(**projectRequestDTO.dict())
+#     db.add(db_project)
+#     db.commit()
+#     db.refresh(db_project)
+#     return db_project
+
+
+
+################################################################################################################
+########################################################
+
 
 
 @app.put("/profile/{profile_id}")
