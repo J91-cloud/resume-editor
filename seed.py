@@ -85,8 +85,8 @@ def create_default_certifications():
 
 
 if __name__ == "__main__":
-    create_default_profile()
+    #create_default_profile()
     create_default_projects()
-    create_default_certifications()
-    create_default_skills()
+    #create_default_certifications()
+    #create_default_skills()
     

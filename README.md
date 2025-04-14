@@ -12,3 +12,16 @@
 
 
 Have you ever been so unmotivated to edit your resume, always having to keep the styling the same and trying to make the most space as possible? Here is the ultimate resume builder. Made with `fastAPI` , hosted with `cloudflare tunnels` and stored with an SQLite database. I used my raspberry pi to host it, if you have your own home server or anything able to host a web server, dont hesitate to use, this applucation is bery lightweight. 
+
+
+## Starting the project
+Like always when running with a python project it is always recommended to create all your dependencies in a virtual environement. Activate a venv environment:
+
+` venv\Scripts\activate`
+
+After install the necesaary modules:
+
+`pip install fastapi uvicorn sqlalchemy python-multipart jinja2 `. 
+
+To reload the project, meaning your main method please run it with univcorn:
+`uvicorn main:app --reload`

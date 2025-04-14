@@ -1,14 +1,17 @@
 # main.py
 from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.orm import Session
-from models import Profile,Projects
+from sqlalchemy.orm import Session,sessionmaker
+from models import Profile,Projects,Skills, Certifications
 from database import SessionLocal, engine
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 # Create database tables
 Profile.metadata.create_all(bind=engine)
 
@@ -46,9 +49,63 @@ templates = Jinja2Templates(directory="templates")
 #     return templates.TemplateResponse("profile.html", {"request": request, "profile": profile})
 
 
+
+########################################################################################
+    #                            HTTP GET Requests
+########################################################################################
 @app.get("/")
 async def show_projects(request: Request):
-    return templates.TemplateResponse("main/index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/projects")
+async def get_projects(request:Request):
+    Session = sessionmaker(bind=engine)
+
+    db = Session()
+    projects = db.query(Projects).all()
+    db.close()
+
+    return templates.TemplateResponse("project.html",{"request":request, "projects": projects})
+
+
+@app.get("/profile")
+async def get_profile(request: Request):
+
+    Session = sessionmaker(hind=engine)
+    db = Session()
+    profile = db.query(Profile).all
+    
+    return templates.TemplateResponse("profile.html", {"request" : request, "profile" : profile})
+
+@app.get("/skills")
+async def get_skills(request: Request):
+
+    Session = sessionmaker(hind=engine)
+    db = Session()
+    skills = db.query(Skills).all()
+    return templates.TemplateResponse("skills.html", {"request": request, "skills":skills})
+
+
+@app.get("/certifications")
+async def get_certifications(request:Request):
+
+    Session = sessionmaker(hind=engine)
+    db = Session()
+    certification = db.query(Certifications).all()
+    return templates.TemplateResponse("certifications.html", {"request":request, "certifications": certification})
+
+
+
+
+##############################################################################################
+
+
+
+
+
+
+
+
 
 
 
@@ -86,17 +143,3 @@ def update_profile(profile_id: int, profile: ProfileCreate, db: Session = Depend
     db.refresh(db_profile)
     return db_profile
 
-
-
-# Add these new routes
-@app.get("/projects")
-async def show_projects(request: Request):
-    return templates.TemplateResponse("projects.html", {"request": request})
-
-@app.get("/skills")
-async def show_skills(request: Request):
-    return templates.TemplateResponse("skills.html", {"request": request})
-
-@app.get("/certifications")
-async def show_certifications(request: Request):
-    return templates.TemplateResponse("certifications.html", {"request": request})

@@ -42,6 +42,7 @@ def display_profile():
     db.close()
 
 def display_projects():
+
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
     Session = sessionmaker(bind=engine)
     db = Session()
@@ -55,7 +56,6 @@ def display_projects():
         return
     
 
-    projects.list[0.1]
     # Get all projects
     projects = db.query(Projects).all()
     
@@ -70,6 +70,7 @@ def display_projects():
     columns = Projects.__table__.columns.keys()
     for col in columns:
         table.add_column(col, style="cyan")
+            
     
     # Add rows
     for project in projects:
