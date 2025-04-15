@@ -42,42 +42,37 @@ def display_profile():
     db.close()
 
 def display_projects():
-
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
     Session = sessionmaker(bind=engine)
     db = Session()
-    
+
     console = Console()
     
-    # Check if projects table exists
     inspector = inspect(engine)
     if "projects" not in inspector.get_table_names():
         console.print("[red]❌ Projects table doesn't exist![/red]")
         return
     
-
-    # Get all projects
     projects = db.query(Projects).all()
     
     if not projects:
         console.print("[yellow]⚠️ No projects found in database[/yellow]")
         return
     
-    # Create a rich table
+    
     table = Table(title="Project Data", show_header=True, header_style="bold magenta")
     
-    # Add columns (using the first project as reference)
     columns = Projects.__table__.columns.keys()
     for col in columns:
         table.add_column(col, style="cyan")
             
-    
     # Add rows
     for project in projects:
         table.add_row(*[str(getattr(project, col)) for col in columns])
-    
     console.print(table)
     db.close()
+
+
 
 
 if __name__ == "__main__":

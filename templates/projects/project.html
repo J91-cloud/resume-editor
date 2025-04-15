@@ -6,16 +6,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-
-
     <link rel="stylesheet" href="{{ url_for('static', path='/css/global.css') }}">
-
-    <title>Document</title>
+    <title>Add Project</title>
 </head>
+
+
 <body>
 
     <div class="container">
-
     
     <h1>Hello from the Project Page </h1>
     <p>This is the displaying project</p>
@@ -32,6 +30,7 @@
                 <h1>{{projects.full_name}}</h1>
                 <p>{{projects.small_description}}</p>
                 <p>{{projects.technologies_used}}</p>
+                <p>{{projects.start_date}}</p>
                 <img src="image1-path.png" alt="Alt text 1" class="img-backdrop"/>
             </div>
         </div>
@@ -40,17 +39,6 @@
     {% endfor %}
 
 </div>
-
-
-<script>
-
-const btn = document.getElementById("myButton");
-
-btn.addEventListener("click", function () {
-    navigator("/add-project");
-    alert("Button was clicked!");
-});
-</script>
 
 </body>
 </html>
