@@ -14,6 +14,8 @@ class Profile(Base):
     github = Column(String, nullable=True)
     summary = Column(String, nullable=True)
 
+
+
 class Projects(Base):
     __tablename__ = "projects"
     id = Column(Integer, primary_key=True, index=True)
@@ -34,4 +36,7 @@ class Certifications(Base):
     id = Column(Integer, primary_key=True,index=True)
     full_name = Column(String)
     start_date = Column(String)
-    end_date = Column(String)            
+    end_date = Column(String)         
+
+  
+  

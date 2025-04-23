@@ -6,12 +6,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" href="{{ url_for('static', path='/css/addproject.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/global.css') }}"> -->
     <title>Add Project</title>
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <h1>Hello from the Add Project page</h1>
+            <h1>Add A Project</h1>
+            <!-- Use Name as the value of relivence-->
+            <form action="">
+                <input type="full_name" name="full_name" placeholder="Name of Project">
+                <input type="start_date" name="start_date" placeholder="Start Date of Project">
+                <input type="end_date" name="end_date" placeholder="End Date of Project">
+                <input type="small_description" name="small_description" placeholder="Small Description">
+                <input type="technologies_used" name="technologies_used" placeholder="Technologies used">
+                <input type="role_of_project" name="role_of_project" placeholder="What was your role">
+
+                
+                
+                <button type="submit">Add Project</button>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <a href="/projects">
+                    Projects
+                </a>
+            </div>
+            <div class="col-6">
+
+            </div>
         </div>
     </div>
     

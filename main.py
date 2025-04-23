@@ -119,14 +119,8 @@ async def add_project_form(request:Request):
 
 
 
+
 ##############################################################################################
-
-
-
-
-
-
-
 
 
 
@@ -152,13 +146,15 @@ def create_profile(profile: ProfileCreate, db: Session = Depends(get_db)):
     db.refresh(db_profile)
     return db_profile
 
-# @app.post("/project/add")
-# def create_project(projectRequestDTO: ProjectRequestDTO, db: Session ):
-#     db_project = Projects(**projectRequestDTO.dict())
-#     db.add(db_project)
-#     db.commit()
-#     db.refresh(db_project)
-#     return db_project
+
+@app.post("/project/add")
+def create_project(projectRequestDTO: ProjectRequestDTO, db: Session ):
+    db_project = Projects(projectRequestDTO.dict())
+    db.add(db_project)
+    db.commit()
+    db.refresh(db_project)
+    return db_project
+
 
 
 
