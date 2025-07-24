@@ -1,0 +1,17 @@
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables"; 
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap'); // Replace with the actual URL from Google Fonts
+
+$font-family-base: "Nunito", sans-serif; 
+
+
+@import "~bootstrap/scss/bootstrap";
+
+
+body {
+  font-family: $font-family-base;
+}
+
