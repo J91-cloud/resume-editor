@@ -1,20 +1,37 @@
-.welcome-section {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  background-color: #f1f1f1;
-  color: rgb(0, 0, 0);
-  padding: 3rem 1rem;
-  padding-left: 80px;
+.navbar-section{
+  height: 75px;
 }
 
-p {
-    font-size: 22px;
+
+ul.un-list{
+  margin-right: 60px;
+  margin-top: 30px;
+  text-align: right;
 }
 
-.center{
-    text-align: center;
+ul.un-list li {
+  list-style: none;
+  font-weight: 700;
+  font-size: 20px;
+  display: inline;
+  margin-right: 40px;  
+}
+
+ul.un-list li a{
+  color: black;
+  
+}
+
+.first-section{
+  
+}
+
+.footer-section{
+  background-color:rgb(252, 250, 246);
+  margin-top: 150px;
+  height: 200px;
+  position: absolute;
+  width: 100%;
+
+
 }
