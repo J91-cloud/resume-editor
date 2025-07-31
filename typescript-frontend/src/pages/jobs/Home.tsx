@@ -1,7 +1,25 @@
-import React from "react";
+import React, { use, useState } from "react";
+
 import "./Home.css"
+import axiosInstance from "../../components/axiosInstance";
 import suitcase from "../../styles/suitcase.svg"
+import Job from "../../models/jobs";
 export default function Home() {
+
+
+    const [jobs, setJobs] = useState([]);
+
+    const fetchJobs = async () => {
+        try {
+            const response = await axiosInstance.get("/jobs");
+            setJobs(response.data);
+        } catch (error) {
+            console.error("Error fetching jobs:", error);
+        }
+    };
+
+       
+
     return(
         <>
             <section className="introduction-section">
@@ -48,7 +66,10 @@ export default function Home() {
                             <p>These are all of the locations i have applied to in detail. Please remove the ones that you already have an answer from. Meaning if they rejected you, please delete them from the database.</p>
                             <button className="btn btn-warning">Add A New Application</button>
                         </div>
-                        <div className="col-md-6 col-12"></div>
+                        <div className="col-md-6 col-12">
+
+                            <p></p>
+                        </div>
                     </div>
                 </div>
             </section>

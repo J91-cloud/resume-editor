@@ -28,10 +28,39 @@ ul.un-list li a{
 
 .footer-section{
   background-color:rgb(252, 250, 246);
-  margin-top: 150px;
+  margin-top: 0px;
   height: 200px;
   position: absolute;
   width: 100%;
 
 
+}
+
+/* Keyframes for the whole application goes below here */
+
+@keyframes fadeInX {
+    0% {
+        transform: translateX(-100px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes fadeInY {
+    0% {
+        transform: translateY(-100px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeInRight-Left{
+    0% {
+        transform: translateX(100px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
 }

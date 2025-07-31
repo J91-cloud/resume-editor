@@ -10,7 +10,7 @@ function App() {
     <section className="navbar-section">
       <div className="navbar-right">
         <ul className="un-list">
-          <li><a href="/home">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/traits">Traits</a></li>
           <li><a href="/builder">Build-Resume</a></li>
         </ul>
@@ -19,13 +19,16 @@ function App() {
     </section>
 
     <Routes>
-      <Route path='/home' element={<Home/>}/>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/traits' element={<h1>Traits Page</h1>}/>
+      <Route path='/builder' element={<h1>Builder Page</h1>}/>
     </Routes>
     </Router>
 
     <section className="footer-section">
       <div className="container">
-        <h1>Footer Page</h1>
+        <h1>Footer Section of Application</h1>
+        <p>Please provide all of your footer functions and applications here.</p>
       </div>
     </section>
     

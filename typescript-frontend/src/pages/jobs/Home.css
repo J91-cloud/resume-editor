@@ -9,11 +9,13 @@ section{
 .introduction-section h1 {
     padding: 15px;
     font-size: 55px;
+    animation: 1s fadeInY;
 }
 .introduction-section p {
     font-size: 40px;
     font-weight: 700;
     padding: 15px;
+    animation: 1s fadeInX;
 
 }
 .introduction-section p.sub-heading {
@@ -64,6 +66,7 @@ section{
     font-size: 22px;
     font-weight: 700;
     line-height: 2;
+    animation: 1s fadeInRight-Left;
 }
 
 
@@ -87,3 +90,8 @@ section{
     margin-right: auto;
     height: 55px;
 }
+
+
+
+
+
