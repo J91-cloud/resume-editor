@@ -1,22 +1,21 @@
-import React, { use, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Home.css"
 import axiosInstance from "../../components/axiosInstance";
 import suitcase from "../../styles/suitcase.svg"
-import Job from "../../models/jobs";
+import { Job } from "../../models/jobs"
 export default function Home() {
 
 
-    const [jobs, setJobs] = useState([]);
+    const [jobs, setJobs] = useState<Job[]>([]);
 
     const fetchJobs = async () => {
-        try {
-            const response = await axiosInstance.get("/jobs");
-            setJobs(response.data);
-        } catch (error) {
-            console.error("Error fetching jobs:", error);
-        }
-    };
+        useEffect(() => {
+             axiosInstance.get<Job[]>('/jobs')
+            .then(response => setJobs(response.data))
+            .catch(error => console.error("Error fetching jobs:", error));
+        }, []);
+    }
 
        
 
@@ -68,7 +67,11 @@ export default function Home() {
                         </div>
                         <div className="col-md-6 col-12">
 
-                            <p></p>
+                            <ul>
+                                {jobs.map(job =>(
+                                    <li key={job.title}/>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>
