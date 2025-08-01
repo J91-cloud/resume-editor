@@ -1,0 +1,38 @@
+.introduction-section-traits{
+    background-color: rgb(255, 242, 226);
+    
+
+}
+
+.introduction-section-traits h1 {
+    font-weight: 700;
+    font-size: 26x;
+    animation: 1s fadeInY;
+    text-align: center;
+}
+
+.introduction-section-traits p {
+    font-size: 22px;
+    display: block;
+    text-align: center;
+    line-height: 2;
+    font-weight: 700;
+    animation: 1s fadeInX;
+}
+.introduction-section-traits img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 400px;
+    width: 400px;
+}
+
+
+.projects-section-traits {
+    background-color: pink;
+}
+
+.projects-section-traits h1{
+    font-size: 26px;
+    font-weight: 700;
+}

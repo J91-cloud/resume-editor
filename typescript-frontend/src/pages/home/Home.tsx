@@ -9,7 +9,7 @@ export default function Home() {
 
     const [jobs, setJobs] = useState<Job[]>([]);
 
-    const fetchJobs = async () => {
+    const FetchJobs = async () => {
         useEffect(() => {
              axiosInstance.get<Job[]>('/jobs')
             .then(response => setJobs(response.data))
