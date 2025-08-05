@@ -3,4 +3,6 @@
 </p>
 
 > **⚠️ Warning:**  
-> This project was to facilitate the way i make my resumes when applyinf for a job. 
+> This project was to facilitate the way i make my resumes when applying for a job.
+
+This is just the beginning of this ReadME file, there is more to come later.
