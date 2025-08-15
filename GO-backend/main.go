@@ -31,9 +31,12 @@ func main() {
 
 	fmt.Println("You have passed stage 3")
 
-	r := gin.Default()
+	router := gin.Default()
+	
 
-	r.GET("/jobs", jobs.GetAllJobs)
-	r.POST("/jobs", jobs.AddJob)
+	router.GET("/jobs", jobs.GetAllJobs)
+	router.POST("/jobs", jobs.AddJob)
+
+	router.Run(":8084")
 
 }
