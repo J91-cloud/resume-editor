@@ -1,0 +1,55 @@
+package skills
+
+import (
+	"database/sql"
+	"log"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+var db *sql.DB
+
+func Setup(database *sql.DB) {
+	db = database
+}
+
+type skill struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+func CreateTable() {
+	query := `CREATE TABLE IF NOT EXISTS skills (
+	id INTEGER PRIMARY KEY AUTO INCREMENT,
+	NAME TEXT NOT NULL
+	
+	)`
+
+	_, err := db.Exec(query)
+
+	if err != nil {
+		log.Fatal("Error creating table", err)
+	}
+}
+
+func GetAllSkills(c *gin.Context) {
+	var skills []skill
+	query := `SELECT id, name FROM skills`
+
+	rows, err := db.Query(query)
+	if err != nil {
+		log.Fatal("Sommething went wrong fetchting skills database", err)
+	}
+
+	for rows.Next() {
+		var u skill
+		if err := rows.Scan(&u.ID, &u.Name); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error fetching jobs ", "error": err.Error()})
+		}
+		skills = append(skills, u)
+	}
+
+	c.JSON(http.StatusInternalServerError, gin.H{"success": "All good from here", "message": "Fetched jobs correctly", "data": skills})
+
+}

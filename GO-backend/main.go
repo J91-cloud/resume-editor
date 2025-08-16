@@ -23,16 +23,21 @@ func main() {
 
 	fmt.Println("You have passed stage 1")
 
-	jobs.Setup(db)
+	// Every model will need to setup the DB
 
-	fmt.Println("You have passed stage 2")
+	jobs.Setup(db)
 
 	jobs.CreateTable()
 
-	fmt.Println("You have passed stage 3")
+	/////////////////
+
+	/////////////////
+
+	/////////////////
+
+	/////////////////
 
 	router := gin.Default()
-	
 
 	router.GET("/jobs", jobs.GetAllJobs)
 	router.POST("/jobs", jobs.AddJob)
