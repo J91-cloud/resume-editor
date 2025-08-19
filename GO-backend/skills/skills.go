@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -71,5 +72,31 @@ func CreateSkill(c *gin.Context) {
 	newSkill.ID = int(id)
 
 	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "successfully created a new skill", "data": newSkill})
+
+}
+
+func DeleteSkill(c *gin.Context) {
+	var skillid = c.Param("id")
+
+	idString, err := strconv.Atoi(skillid)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	result, err := db.Exec("DELETE FROM skills where id = ?", idString)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+	rowAffected, err := result.RowsAffected()
+
+	if err != nil || rowAffected == 0 {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{"success": true, "message": "Successfuly deleted skill"})
 
 }

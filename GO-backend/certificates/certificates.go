@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -77,4 +78,28 @@ func CreateCertificate(c *gin.Context) {
 	newCertificate.ID = int(id)
 
 	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "Successfuly created new certificate", "data": newCertificate})
+}
+
+func DeleteCertificate(c *gin.Context) {
+	var certificateId = c.Param("id")
+
+	idString, err := strconv.Atoi(certificateId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+	result, err := db.Exec("DELETE FROM certificates where id = ?", idString)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil || rowsAffected == 0 {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{"success": true, "message": "Successfuly delete a certificate"})
+
 }

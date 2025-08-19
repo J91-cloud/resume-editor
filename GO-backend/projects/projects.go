@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -77,5 +78,31 @@ func CreateProject(c *gin.Context) {
 	newProject.ID = int(id)
 
 	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "successfuly created a new project", "data": newProject})
+
+}
+
+func DeleteProject(c *gin.Context) {
+	var projectId = c.Param("id")
+
+	idString, err := strconv.Atoi(projectId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting project.", "error": err.Error()})
+		return
+	}
+
+	result, err := db.Exec("DELETE FROM projects where id = ?", idString)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	rowAffected, err := result.RowsAffected()
+	if err != nil || rowAffected == 0 {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error deleting skill.", "error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{"success": true, "message": "Successfuly deleted project"})
 
 }
