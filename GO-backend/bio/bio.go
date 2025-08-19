@@ -11,7 +11,7 @@ import (
 type bio struct {
 	ID                int    `json:"id"`
 	Name              string `json:"name"`
-	Phone_number      string `json:"phone_number""`
+	Phone_number      string `json:"phone_number"`
 	Address           string `json:"address"`
 	Short_description string `json:"short_description"`
 	Linkedln_link     string `json:"linkedln_link"`

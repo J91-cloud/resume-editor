@@ -1,9 +1,9 @@
 export interface project {
     id: number;
     name: string;
-    role: string;
-    accomplishments: string;
-    tools:string;
-    startDate: string;
-    endDate: string;
+    short_description: string;
+    tools_used:string;
+    project_role: string;
+    date_started: string;
+    date_ended: string;
 }

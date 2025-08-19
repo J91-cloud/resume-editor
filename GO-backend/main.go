@@ -10,11 +10,18 @@ import (
 	"resume-editor/go-backend/projects"
 	"resume-editor/go-backend/skills"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func main() {
+
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	config.AllowHeaders = []string{"Origin", "Content-Type", "Authorization"}
+	config.AllowCredentials = true
 
 	//initialize database connection
 
@@ -25,6 +32,8 @@ func main() {
 	defer db.Close()
 
 	router := gin.Default()
+
+	router.Use(cors.New(config))
 
 	{
 

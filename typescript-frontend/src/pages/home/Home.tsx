@@ -4,20 +4,32 @@ import "./Home.css"
 import axiosInstance from "../../components/axiosInstance";
 import suitcase from "../../styles/suitcase.svg"
 import { Job } from "../../models/jobs"
+import { JobResponse } from "../../models/jobs";
 export default function Home() {
 
 
     const [jobs, setJobs] = useState<Job[]>([]);
 
-    const FetchJobs = async () => {
-        useEffect(() => {
-             axiosInstance.get<Job[]>('/jobs')
-            .then(response => setJobs(response.data))
-            .catch(error => console.error("Error fetching jobs:", error));
-        }, []);
-    }
 
-       
+
+    useEffect(() => {
+    const fetchJobs = async () => {
+        try {
+            const response = await axiosInstance.get<JobResponse>("/jobs")
+            setJobs(response.data.data)
+
+            
+        } catch (error) {
+            console.error("Error fetching jobs", error)
+            
+        }
+    };
+
+    fetchJobs();
+
+
+    },[])
+
 
     return(
         <>
@@ -69,7 +81,7 @@ export default function Home() {
 
                             <ul>
                                 {jobs.map(job =>(
-                                    <li key={job.title}/>
+                                    <li key={job.id}> {job.name} </li>
                                 ))}
                             </ul>
                         </div>
