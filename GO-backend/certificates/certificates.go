@@ -17,7 +17,7 @@ func Setup(database *sql.DB) {
 type certificates struct {
 	ID           int    `json:"id"`
 	Name         string `json:"name"`
-	Date_applied string `json:"date-applied"`
+	Date_applied string `json:"date_applied"`
 }
 
 func CreateTable() {
@@ -57,4 +57,24 @@ func GetAllCertificates(g *gin.Context) {
 	}
 	g.JSON(http.StatusAccepted, gin.H{"success": true, "mesagge": "Successful fetch of the certificates database", "data": certificate})
 
+}
+
+func CreateCertificate(c *gin.Context) {
+	var newCertificate certificates
+
+	result, err := db.Exec("INSERT INTO certificates (name, date_applied) VALUES (?,?)", newCertificate.Name, newCertificate.Date_applied)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Failed to create certificate", "errpr": err.Error()})
+	}
+
+	id, err := result.LastInsertId()
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Failed to create certificate", "errpr": err.Error()})
+	}
+
+	newCertificate.ID = int(id)
+
+	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "Successfuly created new certificate", "data": newCertificate})
 }

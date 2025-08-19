@@ -53,3 +53,23 @@ func GetAllSkills(c *gin.Context) {
 	c.JSON(http.StatusInternalServerError, gin.H{"success": "All good from here", "message": "Fetched jobs correctly", "data": skills})
 
 }
+
+func CreateSkill(c *gin.Context) {
+	var newSkill skill
+
+	result, err := db.Exec("INSERT INTO skills (name) VALUES (?)", newSkill.Name)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error creating new skill", "error": err.Error()})
+		return
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error creating resource.", "error": err.Error()})
+		return
+	}
+
+	newSkill.ID = int(id)
+
+	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "successfully created a new skill", "data": newSkill})
+
+}

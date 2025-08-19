@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -80,4 +81,32 @@ func AddJob(c *gin.Context) {
 
 	newjob.Id = int(id)
 	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "Resource created successfully.", "data": newjob})
+}
+
+func DeleteJob(c *gin.Context) {
+	var deletedJobId = c.Param("id")
+
+	idString, err := strconv.Atoi(deletedJobId)
+
+	if err != nil {
+
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Error creating resource.", "error": err.Error()})
+		return
+	}
+
+	result, err := db.Exec("DELETE from job where id = ? ", idString)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "did not delete job successfuly", "error": err.Error()})
+		return
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil || rowsAffected == 0 {
+		// 3. Check if any rows were actually deleted
+		c.JSON(http.StatusNotFound, gin.H{"success": false, "message": "Job not found or already deleted."})
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{"success": true, "message": "Successfuly delete your job"})
+
 }

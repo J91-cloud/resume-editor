@@ -57,3 +57,25 @@ func GetAllProjects(c *gin.Context) {
 	c.JSON(http.StatusInternalServerError, gin.H{"success": "Successful get from the projects table", "message": "fetched projects table", "data": projects})
 
 }
+
+func CreateProject(c *gin.Context) {
+	var newProject project
+
+	result, err := db.Exec("INSERT INTO projects (name, short_description) VALUES (?,?)", newProject.Name, newProject.Short_description)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Failed to create new project", "error": err.Error()})
+		return
+	}
+
+	id, err := result.LastInsertId()
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Failed to create new project", "error": err.Error()})
+		return
+	}
+
+	newProject.ID = int(id)
+
+	c.JSON(http.StatusCreated, gin.H{"success": true, "message": "successfuly created a new project", "data": newProject})
+
+}
