@@ -19,13 +19,21 @@ type project struct {
 	ID                int    `json:"id"`
 	Name              string `json:"name"`
 	Short_description string `json:"short_description"`
+	Tools_used        string `json:"tools_used"`
+	Project_Role      string `json:"project_role"`
+	Date_started      string `json:"date_started"`
+	Date_ended        string `json:"date_ended"`
 }
 
 func CreateTable() {
 	query := `CREATE TABLE IF NOT EXISTS projects (
-	ID PRIMARY KEY AUTO INCREMENT,
-	Name TEXT NOT NULL,
-	Short_description TEXT NOT NULL
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+	short_description TEXT NOT NULL,
+	tools_used TEXT NOT NULL,
+	project_role TEXT NOT NULL,
+	date_started TEXT NOT NULL,
+	date_ended TEXT NOT NULL
 	)`
 
 	_, err := db.Exec(query)
@@ -37,7 +45,7 @@ func CreateTable() {
 
 func GetAllProjects(c *gin.Context) {
 	var projects []project
-	query := `SELECT ID,Name,Short_description from projects`
+	query := `SELECT id,name,short_description, tools_used, project_role, date_started, date_ended from projects`
 	rows, err := db.Query(query)
 
 	if err != nil {
@@ -47,7 +55,7 @@ func GetAllProjects(c *gin.Context) {
 
 	for rows.Next() {
 		var u project
-		if err := rows.Scan(&u.ID, &u.Name, &u.Short_description); err != nil {
+		if err := rows.Scan(&u.ID, &u.Name, &u.Short_description, &u.Tools_used, &u.Project_Role, &u.Date_started, &u.Date_ended); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"success": "Error getting from the projects table", "message": "fetched projects table", "error": err.Error()})
 
 		}
@@ -62,7 +70,7 @@ func GetAllProjects(c *gin.Context) {
 func CreateProject(c *gin.Context) {
 	var newProject project
 
-	result, err := db.Exec("INSERT INTO projects (name, short_description) VALUES (?,?)", newProject.Name, newProject.Short_description)
+	result, err := db.Exec("INSERT INTO projects (name, short_description) VALUES (?,?)", newProject.Name, newProject.Short_description, newProject.Tools_used, newProject.Project_Role, newProject.Date_started, newProject.Date_ended)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"success": false, "message": "Failed to create new project", "error": err.Error()})
 		return

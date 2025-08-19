@@ -23,9 +23,9 @@ type certificates struct {
 
 func CreateTable() {
 	query := `CREATE TABLE IF NOT EXISTS certificates (
-	ID PRIMARY KEY AUTO INCREMENT,
-	Name TEXT NOT NULL,
-	Date_applied TEXT NOT NULL
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+	date_applied TEXT NOT NULL
 	)`
 
 	_, err := db.Exec(query)
@@ -40,7 +40,7 @@ func CreateTable() {
 func GetAllCertificates(g *gin.Context) {
 	var certificate []certificates
 
-	query := `SELECT ID,Name,Date_applied from certificates`
+	query := `SELECT id,name,date_applied from certificates`
 
 	rows, err := db.Query(query)
 

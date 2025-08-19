@@ -22,8 +22,8 @@ type skill struct {
 
 func CreateTable() {
 	query := `CREATE TABLE IF NOT EXISTS skills (
-	id INTEGER PRIMARY KEY AUTO INCREMENT,
-	NAME TEXT NOT NULL
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL
 	
 	)`
 
