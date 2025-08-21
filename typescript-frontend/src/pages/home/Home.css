@@ -70,8 +70,35 @@ section{
 }
 
 
-.jobs-section{
+.jobs-section .container h1 .title{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 
+}
+
+.jobs-section .card {
+opacity: .5;
+animation: 1s fadeInRight-Left;
+margin: 5px;
+}
+
+.jobs-section .card :hover {
+    opacity: 1;
+}
+
+
+.jobs-section .card h1{
+    font-weight: 600;
+    font-size: 25px;
+    padding: 10px;
+    margin: 10px;
+
+
+}
+.jobs-section .card p {
+    font-size: 17px;
+    text-align: center;
 }
 
 .jobs-section h1 {

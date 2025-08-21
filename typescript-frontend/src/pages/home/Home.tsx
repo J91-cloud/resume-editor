@@ -5,12 +5,14 @@ import axiosInstance from "../../components/axiosInstance";
 import suitcase from "../../styles/suitcase.svg"
 import { Job } from "../../models/jobs"
 import { JobResponse } from "../../models/jobs";
+import { request } from "https";
+import { data } from "react-router-dom";
 export default function Home() {
 
 
     const [jobs, setJobs] = useState<Job[]>([]);
 
-
+    
 
     useEffect(() => {
     const fetchJobs = async () => {
@@ -26,7 +28,6 @@ export default function Home() {
     };
 
     fetchJobs();
-
 
     },[])
 
@@ -68,22 +69,23 @@ export default function Home() {
                 </div>
             </section>
 
-
             <section className="jobs-section">
                 <div className="container">
-                    <h1>All Jobs Applied in Detail</h1>
+                    <h1 className="title">All Jobs Applied in Detail</h1>
                     <div className="row">
                         <div className="col-md-6 col-12">
                             <p>These are all of the locations i have applied to in detail. Please remove the ones that you already have an answer from. Meaning if they rejected you, please delete them from the database.</p>
                             <button className="btn btn-warning">Add A New Application</button>
                         </div>
                         <div className="col-md-6 col-12">
-
-                            <ul>
                                 {jobs.map(job =>(
-                                    <li key={job.id}> {job.name} </li>
+                                    <div className="card">
+                                        <h1 key={job.id}>{job.name}</h1>
+                                        <p>{job.date_applied}</p>
+                                    </div>
                                 ))}
-                            </ul>
+
+                            
                         </div>
                     </div>
                 </div>
