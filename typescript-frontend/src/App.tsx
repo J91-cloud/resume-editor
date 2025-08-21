@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "../src/styles/styles.scss"
 import Home from "./pages/home/Home"
 import Traits from "./pages/traits/Traits"
+import Jobs from './forms/jobs-forms';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/traits' element={<Traits/>}/>
       <Route path='/builder' element={<h1>Builder Page</h1>}/>
+      <Route path='/jobs-form' element={<Jobs/>}/>
     </Routes>
     </Router>
 
