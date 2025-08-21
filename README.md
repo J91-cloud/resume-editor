@@ -5,4 +5,6 @@
 > **⚠️ Warning:**  
 > This project was to facilitate the way i make my resumes when applying for a job.
 
-This is just the beginning of this ReadME file, there is more to come later.
+With using multiple python libraries i will be able to select and choose which projects i want on my resume. 
+
+The issue i had with this is that sometimes a job description would require different types of projects needed, whetehr it was a front-end or backend job application. 
